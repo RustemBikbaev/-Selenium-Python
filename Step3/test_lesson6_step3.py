@@ -10,10 +10,8 @@ import math
 
 @pytest.fixture(scope="function")
 def browser():
-	#print("\nstart browser for test..")
 	browser = webdriver.Chrome()
 	yield browser
-	#print("\nquit browser..")
 	browser.quit()
 
 
@@ -29,10 +27,7 @@ class TestMainPage1():
 		button = WebDriverWait(browser, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".submit-submission")))
 		button.click()
 		output = browser.find_element_by_css_selector("pre.smart-hints__hint")
-		#print(output)
 		if output.text != "Correct!":
-			time.sleep(5)
-			print("\n"+output.text)
-			incorrect_answers.append(output)
-	
-print(" ".join(incorrect_answers))		
+			print("\n ============"+output.text+"============\n")
+			assert output.text == "Correct!", "Output is not 'Correct!'"
+
