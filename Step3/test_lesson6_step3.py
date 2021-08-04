@@ -10,7 +10,9 @@ import math
 
 @pytest.fixture(scope="function")
 def browser():
-	browser = webdriver.Chrome()
+	options = webdriver.ChromeOptions()
+	options.add_experimental_option('excludeSwitches', ['enable-logging'])
+	browser = webdriver.Chrome(options=options)
 	yield browser
 	browser.quit()
 
